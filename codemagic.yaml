@@ -1,8 +1,6 @@
 workflows:
   default:
     name: Build and Upload APK
-    environment:
-      flutter: none  # No Flutter SDK, it's a Java-based Android app
     scripts:
       - name: Install dependencies
         script: |
