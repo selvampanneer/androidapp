@@ -1,9 +1,23 @@
 workflows:
-
-  hello-world:
-
-    name: Hello world workflow
-
+  default:
+    name: Build and Upload APK
+    environment:
+      flutter: none  # No Flutter SDK, it's a Java-based Android app
+    android:
+      build_gradle: android/build.gradle  # Path to your app's build.gradle file
     scripts:
-
-        - echo "Hello World!"
+      - name: Install dependencies
+        script: |
+          # You can install any dependencies needed by your app
+          chmod +x gradlew  # Make gradlew executable (if not already)
+      - name: Build APK
+        script: |
+          ./gradlew assembleRelease  # This will build the release APK
+    artifacts:
+      - build/app/outputs/apk/release/app-release.apk  # Path to your APK after the build
+    publish:
+      # Optional: Upload to Firebase, S3, or another service
+      # firebase:
+      #   token: $FIREBASE_AUTH_TOKEN
+      #   app_id: $FIREBASE_APP_ID
+      #   file: build/app/outputs/apk/release/app-release.apk
